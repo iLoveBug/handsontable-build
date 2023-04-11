@@ -611,7 +611,7 @@ var NestedRows = /*#__PURE__*/function (_BasePlugin) {
   }, {
     key: "isCollapsed",
     value: function isCollapsed() {
-      return this.collapsingUI.areChildrenCollapsed();
+      return this.collapsingUI.areChildrenCollapsed(null);
     }
   }], [{
     key: "PLUGIN_KEY",
