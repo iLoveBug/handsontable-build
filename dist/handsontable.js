@@ -26,7 +26,7 @@
  * USE OR INABILITY TO USE THIS SOFTWARE.
  * 
  * Version: 12.3.3
- * Release date: 28/03/2023 (built at 11/04/2023 11:34:18)
+ * Release date: 28/03/2023 (built at 11/04/2023 14:19:49)
  */
 (function webpackUniversalModuleDefinition(root, factory) {
 	if(typeof exports === 'object' && typeof module === 'object')
@@ -41833,7 +41833,7 @@ Handsontable.hooks = _pluginHooks.default.getSingleton();
 Handsontable.CellCoords = _src.CellCoords;
 Handsontable.CellRange = _src.CellRange;
 Handsontable.packageName = 'handsontable';
-Handsontable.buildDate = "11/04/2023 11:34:18";
+Handsontable.buildDate = "11/04/2023 14:19:49";
 Handsontable.version = "12.3.3";
 Handsontable.languages = {
   dictionaryKeys: _registry.dictionaryKeys,
@@ -91377,6 +91377,24 @@ var NestedRows = /*#__PURE__*/function (_BasePlugin) {
       }
       this.dataManager.setData(data);
       this.dataManager.rewriteCache();
+    }
+
+    /**
+     * `collapseAll` hook callback.
+     */
+  }, {
+    key: "collapseAll",
+    value: function collapseAll() {
+      this.collapsingUI.collapseAll();
+    }
+
+    /**
+     * `expandAll` hook callback.
+     */
+  }, {
+    key: "expandAll",
+    value: function expandAll() {
+      this.collapsingUI.expandAll();
     }
   }], [{
     key: "PLUGIN_KEY",

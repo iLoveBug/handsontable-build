@@ -577,6 +577,24 @@ export var NestedRows = /*#__PURE__*/function (_BasePlugin) {
       this.dataManager.setData(data);
       this.dataManager.rewriteCache();
     }
+
+    /**
+     * `collapseAll` hook callback.
+     */
+  }, {
+    key: "collapseAll",
+    value: function collapseAll() {
+      this.collapsingUI.collapseAll();
+    }
+
+    /**
+     * `expandAll` hook callback.
+     */
+  }, {
+    key: "expandAll",
+    value: function expandAll() {
+      this.collapsingUI.expandAll();
+    }
   }], [{
     key: "PLUGIN_KEY",
     get: function get() {
