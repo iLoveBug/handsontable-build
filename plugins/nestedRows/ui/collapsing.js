@@ -477,6 +477,38 @@ var CollapsingUI = /*#__PURE__*/function (_BaseUI) {
     }
 
     /**
+     * Check if any child rows are collapsed.
+     *
+     * @private
+     * @param {number|object|null} row The parent row. `null` for the top level.
+     * @returns {boolean}
+     */
+  }, {
+    key: "isAnyChildrenCollapsed",
+    value: function isAnyChildrenCollapsed(row) {
+      var _this15 = this;
+      var rowObj = isNaN(row) ? row : this.dataManager.getDataObject(row);
+      var anyCollapsed = false;
+
+      // Checking the children of the top-level "parent"
+      if (rowObj === null) {
+        rowObj = {
+          __children: this.dataManager.data
+        };
+      }
+      if (this.dataManager.hasChildren(rowObj)) {
+        (0, _array.arrayEach)(rowObj.__children, function (elem) {
+          var rowIndex = _this15.dataManager.getRowIndex(elem);
+          if (_this15.plugin.collapsedRowsMap.getValueAtIndex(rowIndex)) {
+            anyCollapsed = true;
+            return false;
+          }
+        });
+      }
+      return anyCollapsed;
+    }
+
+    /**
      * Check if any of the row object parents are collapsed.
      *
      * @private

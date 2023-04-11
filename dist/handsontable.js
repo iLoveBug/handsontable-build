@@ -26,7 +26,7 @@
  * USE OR INABILITY TO USE THIS SOFTWARE.
  * 
  * Version: 12.3.3
- * Release date: 28/03/2023 (built at 11/04/2023 15:05:49)
+ * Release date: 28/03/2023 (built at 11/04/2023 15:25:53)
  */
 (function webpackUniversalModuleDefinition(root, factory) {
 	if(typeof exports === 'object' && typeof module === 'object')
@@ -41833,7 +41833,7 @@ Handsontable.hooks = _pluginHooks.default.getSingleton();
 Handsontable.CellCoords = _src.CellCoords;
 Handsontable.CellRange = _src.CellRange;
 Handsontable.packageName = 'handsontable';
-Handsontable.buildDate = "11/04/2023 15:05:49";
+Handsontable.buildDate = "11/04/2023 15:25:53";
 Handsontable.version = "12.3.3";
 Handsontable.languages = {
   dictionaryKeys: _registry.dictionaryKeys,
@@ -91405,7 +91405,7 @@ var NestedRows = /*#__PURE__*/function (_BasePlugin) {
   }, {
     key: "isCollapsed",
     value: function isCollapsed() {
-      return this.collapsingUI.areChildrenCollapsed(null);
+      return this.collapsingUI.isAnyChildrenCollapsed(null);
     }
   }], [{
     key: "PLUGIN_KEY",
@@ -92687,6 +92687,38 @@ var CollapsingUI = /*#__PURE__*/function (_BaseUI) {
         });
       }
       return allCollapsed;
+    }
+
+    /**
+     * Check if any child rows are collapsed.
+     *
+     * @private
+     * @param {number|object|null} row The parent row. `null` for the top level.
+     * @returns {boolean}
+     */
+  }, {
+    key: "isAnyChildrenCollapsed",
+    value: function isAnyChildrenCollapsed(row) {
+      var _this15 = this;
+      var rowObj = isNaN(row) ? row : this.dataManager.getDataObject(row);
+      var anyCollapsed = false;
+
+      // Checking the children of the top-level "parent"
+      if (rowObj === null) {
+        rowObj = {
+          __children: this.dataManager.data
+        };
+      }
+      if (this.dataManager.hasChildren(rowObj)) {
+        (0, _array.arrayEach)(rowObj.__children, function (elem) {
+          var rowIndex = _this15.dataManager.getRowIndex(elem);
+          if (_this15.plugin.collapsedRowsMap.getValueAtIndex(rowIndex)) {
+            anyCollapsed = true;
+            return false;
+          }
+        });
+      }
+      return anyCollapsed;
     }
 
     /**
