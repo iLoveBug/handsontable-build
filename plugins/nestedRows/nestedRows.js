@@ -586,7 +586,7 @@ var NestedRows = /*#__PURE__*/function (_BasePlugin) {
     }
 
     /**
-     * `collapseAll` hook callback.
+     * collapse all rows
      */
   }, {
     key: "collapseAll",
@@ -595,12 +595,23 @@ var NestedRows = /*#__PURE__*/function (_BasePlugin) {
     }
 
     /**
-     * `expandAll` hook callback.
+     * expand all collapsed rows
      */
   }, {
     key: "expandAll",
     value: function expandAll() {
       this.collapsingUI.expandAll();
+    }
+
+    /**
+     * check if any parent is collapsed
+     *
+     * @returns {boolean}
+     */
+  }, {
+    key: "isCollapsed",
+    value: function isCollapsed() {
+      return this.collapsingUI.isAnyParentCollapsed();
     }
   }], [{
     key: "PLUGIN_KEY",
