@@ -8,9 +8,10 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 import "core-js/modules/es.array.slice.js";
 import "core-js/modules/es.array.index-of.js";
 import "core-js/modules/es.array.splice.js";
+import "core-js/modules/es.array.reduce.js";
+import "core-js/modules/es.object.to-string.js";
 import "core-js/modules/es.object.set-prototype-of.js";
 import "core-js/modules/es.object.get-prototype-of.js";
-import "core-js/modules/es.object.to-string.js";
 import "core-js/modules/es.reflect.construct.js";
 import "core-js/modules/es.symbol.to-primitive.js";
 import "core-js/modules/es.date.to-primitive.js";
@@ -474,33 +475,14 @@ var CollapsingUI = /*#__PURE__*/function (_BaseUI) {
     /**
      * Check if any child rows are collapsed.
      *
-     * @private
-     * @param {number|object|null} row The parent row. `null` for the top level.
      * @returns {boolean}
      */
   }, {
     key: "isAnyChildrenCollapsed",
-    value: function isAnyChildrenCollapsed(row) {
-      var _this15 = this;
-      var rowObj = isNaN(row) ? row : this.dataManager.getDataObject(row);
-      var anyCollapsed = false;
-
-      // Checking the children of the top-level "parent"
-      if (rowObj === null) {
-        rowObj = {
-          __children: this.dataManager.data
-        };
-      }
-      if (this.dataManager.hasChildren(rowObj)) {
-        arrayEach(rowObj.__children, function (elem) {
-          var rowIndex = _this15.dataManager.getRowIndex(elem);
-          if (_this15.plugin.collapsedRowsMap.getValueAtIndex(rowIndex)) {
-            anyCollapsed = true;
-            return false;
-          }
-        });
-      }
-      return anyCollapsed;
+    value: function isAnyChildrenCollapsed() {
+      return this.plugin.collapsedRowsMap.indexedValues.reduce(function (prev, current) {
+        return prev || current;
+      }, false);
     }
 
     /**
