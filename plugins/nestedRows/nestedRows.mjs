@@ -604,7 +604,7 @@ export var NestedRows = /*#__PURE__*/function (_BasePlugin) {
   }, {
     key: "isCollapsed",
     value: function isCollapsed() {
-      return this.collapsingUI.isAnyParentCollapsed();
+      return this.collapsingUI.areChildrenCollapsed();
     }
   }], [{
     key: "PLUGIN_KEY",
