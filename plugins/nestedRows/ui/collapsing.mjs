@@ -8,10 +8,9 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 import "core-js/modules/es.array.slice.js";
 import "core-js/modules/es.array.index-of.js";
 import "core-js/modules/es.array.splice.js";
-import "core-js/modules/es.array.reduce.js";
-import "core-js/modules/es.object.to-string.js";
 import "core-js/modules/es.object.set-prototype-of.js";
 import "core-js/modules/es.object.get-prototype-of.js";
+import "core-js/modules/es.object.to-string.js";
 import "core-js/modules/es.reflect.construct.js";
 import "core-js/modules/es.symbol.to-primitive.js";
 import "core-js/modules/es.date.to-primitive.js";
@@ -480,9 +479,7 @@ var CollapsingUI = /*#__PURE__*/function (_BaseUI) {
   }, {
     key: "isAnyChildrenCollapsed",
     value: function isAnyChildrenCollapsed() {
-      return this.plugin.collapsedRowsMap.indexedValues.reduce(function (prev, current) {
-        return prev || current;
-      }, false);
+      return this.lastCollapsedRows.length > 0;
     }
 
     /**

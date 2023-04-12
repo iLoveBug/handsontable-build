@@ -1,6 +1,7 @@
 "use strict";
 
 function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
+require("core-js/modules/es.object.to-string.js");
 require("core-js/modules/es.reflect.construct.js");
 require("core-js/modules/es.symbol.to-primitive.js");
 require("core-js/modules/es.date.to-primitive.js");
@@ -19,8 +20,6 @@ exports.default = void 0;
 require("core-js/modules/es.array.slice.js");
 require("core-js/modules/es.array.index-of.js");
 require("core-js/modules/es.array.splice.js");
-require("core-js/modules/es.array.reduce.js");
-require("core-js/modules/es.object.to-string.js");
 require("core-js/modules/es.object.set-prototype-of.js");
 require("core-js/modules/es.object.get-prototype-of.js");
 var _event = require("../../../helpers/dom/event");
@@ -485,9 +484,7 @@ var CollapsingUI = /*#__PURE__*/function (_BaseUI) {
   }, {
     key: "isAnyChildrenCollapsed",
     value: function isAnyChildrenCollapsed() {
-      return this.plugin.collapsedRowsMap.indexedValues.reduce(function (prev, current) {
-        return prev || current;
-      }, false);
+      return this.lastCollapsedRows.length > 0;
     }
 
     /**
