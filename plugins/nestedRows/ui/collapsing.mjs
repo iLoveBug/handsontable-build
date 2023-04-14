@@ -479,7 +479,7 @@ var CollapsingUI = /*#__PURE__*/function (_BaseUI) {
   }, {
     key: "isAnyChildrenCollapsed",
     value: function isAnyChildrenCollapsed() {
-      return this.lastCollapsedRows.length > 0;
+      return this.lastCollapsedRows && this.lastCollapsedRows.length > 0;
     }
 
     /**

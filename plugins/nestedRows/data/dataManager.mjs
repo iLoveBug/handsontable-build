@@ -10,6 +10,8 @@ import "core-js/modules/es.object.to-string.js";
 import "core-js/modules/es.string.iterator.js";
 import "core-js/modules/es.weak-map.js";
 import "core-js/modules/web.dom-collections.iterator.js";
+import "core-js/modules/web.dom-collections.for-each.js";
+import "core-js/modules/es.object.keys.js";
 import "core-js/modules/es.array.index-of.js";
 import "core-js/modules/es.array.splice.js";
 import "core-js/modules/es.array.from.js";
@@ -264,7 +266,14 @@ var DataManager = /*#__PURE__*/function () {
     value: function mockNode() {
       var fakeNode = {};
       objectEach(this.data[0], function (val, key) {
-        fakeNode[key] = null;
+        if (_typeof(val) === 'object' && val !== null) {
+          fakeNode[key] = {};
+          Object.keys(val).forEach(function (item) {
+            fakeNode[key][item] = null;
+          });
+        } else {
+          fakeNode[key] = null;
+        }
       });
       return fakeNode;
     }
@@ -533,7 +542,7 @@ var DataManager = /*#__PURE__*/function () {
       if (!childElement) {
         childElement = this.mockNode();
       }
-      this.hot.runHooks('beforeAddChild', parent, childElement, index);
+      if (!this.hot.runHooks('beforeAddChild', parent, childElement, index)) return;
       if (parent) {
         var parentIndex = this.getRowIndex(parent);
         var finalChildIndex = parentIndex + index + 1;

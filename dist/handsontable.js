@@ -26,7 +26,7 @@
  * USE OR INABILITY TO USE THIS SOFTWARE.
  * 
  * Version: 12.3.3
- * Release date: 28/03/2023 (built at 12/04/2023 15:59:17)
+ * Release date: 28/03/2023 (built at 14/04/2023 10:03:12)
  */
 (function webpackUniversalModuleDefinition(root, factory) {
 	if(typeof exports === 'object' && typeof module === 'object')
@@ -41833,7 +41833,7 @@ Handsontable.hooks = _pluginHooks.default.getSingleton();
 Handsontable.CellCoords = _src.CellCoords;
 Handsontable.CellRange = _src.CellRange;
 Handsontable.packageName = 'handsontable';
-Handsontable.buildDate = "12/04/2023 15:59:17";
+Handsontable.buildDate = "14/04/2023 10:03:12";
 Handsontable.version = "12.3.3";
 Handsontable.languages = {
   dictionaryKeys: _registry.dictionaryKeys,
@@ -91437,6 +91437,8 @@ __webpack_require__(1);
 __webpack_require__(5);
 __webpack_require__(7);
 __webpack_require__(6);
+__webpack_require__(20);
+__webpack_require__(37);
 __webpack_require__(23);
 __webpack_require__(46);
 __webpack_require__(43);
@@ -91682,7 +91684,14 @@ var DataManager = /*#__PURE__*/function () {
     value: function mockNode() {
       var fakeNode = {};
       (0, _object.objectEach)(this.data[0], function (val, key) {
-        fakeNode[key] = null;
+        if ((0, _typeof2.default)(val) === 'object' && val !== null) {
+          fakeNode[key] = {};
+          Object.keys(val).forEach(function (item) {
+            fakeNode[key][item] = null;
+          });
+        } else {
+          fakeNode[key] = null;
+        }
       });
       return fakeNode;
     }
@@ -91951,7 +91960,7 @@ var DataManager = /*#__PURE__*/function () {
       if (!childElement) {
         childElement = this.mockNode();
       }
-      this.hot.runHooks('beforeAddChild', parent, childElement, index);
+      if (!this.hot.runHooks('beforeAddChild', parent, childElement, index)) return;
       if (parent) {
         var parentIndex = this.getRowIndex(parent);
         var finalChildIndex = parentIndex + index + 1;
@@ -92697,7 +92706,7 @@ var CollapsingUI = /*#__PURE__*/function (_BaseUI) {
   }, {
     key: "isAnyChildrenCollapsed",
     value: function isAnyChildrenCollapsed() {
-      return this.lastCollapsedRows.length > 0;
+      return this.lastCollapsedRows && this.lastCollapsedRows.length > 0;
     }
 
     /**
