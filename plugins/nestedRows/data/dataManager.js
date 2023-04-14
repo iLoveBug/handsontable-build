@@ -505,9 +505,7 @@ var DataManager = /*#__PURE__*/function () {
     key: "addChild",
     value: function addChild(parent, element) {
       var childElement = element;
-
-      // if beforeAddChild hook return false, the action is cancelled
-      if (!this.hot.runHooks('beforeAddChild', parent, childElement)) return;
+      this.hot.runHooks('beforeAddChild', parent, childElement);
       var parentIndex = null;
       if (parent) {
         parentIndex = this.getRowIndex(parent);
@@ -546,7 +544,7 @@ var DataManager = /*#__PURE__*/function () {
       if (!childElement) {
         childElement = this.mockNode();
       }
-      if (!this.hot.runHooks('beforeAddChild', parent, childElement, index)) return;
+      this.hot.runHooks('beforeAddChild', parent, childElement, index);
       if (parent) {
         var parentIndex = this.getRowIndex(parent);
         var finalChildIndex = parentIndex + index + 1;

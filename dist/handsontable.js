@@ -26,7 +26,7 @@
  * USE OR INABILITY TO USE THIS SOFTWARE.
  * 
  * Version: 12.3.3
- * Release date: 28/03/2023 (built at 14/04/2023 10:03:12)
+ * Release date: 28/03/2023 (built at 14/04/2023 11:46:26)
  */
 (function webpackUniversalModuleDefinition(root, factory) {
 	if(typeof exports === 'object' && typeof module === 'object')
@@ -41833,7 +41833,7 @@ Handsontable.hooks = _pluginHooks.default.getSingleton();
 Handsontable.CellCoords = _src.CellCoords;
 Handsontable.CellRange = _src.CellRange;
 Handsontable.packageName = 'handsontable';
-Handsontable.buildDate = "14/04/2023 10:03:12";
+Handsontable.buildDate = "14/04/2023 11:46:26";
 Handsontable.version = "12.3.3";
 Handsontable.languages = {
   dictionaryKeys: _registry.dictionaryKeys,
@@ -91919,9 +91919,7 @@ var DataManager = /*#__PURE__*/function () {
     key: "addChild",
     value: function addChild(parent, element) {
       var childElement = element;
-
-      // if beforeAddChild hook return false, the action is cancelled
-      if (!this.hot.runHooks('beforeAddChild', parent, childElement)) return;
+      this.hot.runHooks('beforeAddChild', parent, childElement);
       var parentIndex = null;
       if (parent) {
         parentIndex = this.getRowIndex(parent);
@@ -91960,7 +91958,7 @@ var DataManager = /*#__PURE__*/function () {
       if (!childElement) {
         childElement = this.mockNode();
       }
-      if (!this.hot.runHooks('beforeAddChild', parent, childElement, index)) return;
+      this.hot.runHooks('beforeAddChild', parent, childElement, index);
       if (parent) {
         var parentIndex = this.getRowIndex(parent);
         var finalChildIndex = parentIndex + index + 1;
