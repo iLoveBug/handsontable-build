@@ -606,6 +606,18 @@ export var NestedRows = /*#__PURE__*/function (_BasePlugin) {
     value: function isCollapsed() {
       return this.collapsingUI.isAnyChildrenCollapsed(null);
     }
+
+    /**
+     * get the physical row of a object
+     *
+     * @param {object} rowObj The row object.
+     * @returns {integer}
+     */
+  }, {
+    key: "getRowIndex",
+    value: function getRowIndex(rowObj) {
+      return this.dataManager.getRowIndex(rowObj);
+    }
   }], [{
     key: "PLUGIN_KEY",
     get: function get() {

@@ -266,7 +266,7 @@ var DataManager = /*#__PURE__*/function () {
     value: function mockNode() {
       var fakeNode = {};
       objectEach(this.data[0], function (val, key) {
-        if (_typeof(val) === 'object' && val !== null) {
+        if (_typeof(val) === 'object' && val !== null && key !== '__children') {
           fakeNode[key] = {};
           Object.keys(val).forEach(function (item) {
             fakeNode[key][item] = null;
@@ -522,7 +522,7 @@ var DataManager = /*#__PURE__*/function () {
       var newRowIndex = this.getRowIndex(childElement);
       this.hot.rowIndexMapper.insertIndexes(newRowIndex, 1);
       this.hot.runHooks('afterCreateRow', newRowIndex, 1);
-      this.hot.runHooks('afterAddChild', parent, childElement);
+      this.hot.runHooks('afterAddChild', parent, childElement, newRowIndex, parentIndex);
     }
 
     /**
@@ -563,7 +563,7 @@ var DataManager = /*#__PURE__*/function () {
 
       // Workaround for refreshing cache losing the reference to the mocked row.
       childElement = this.getDataObject(flattenedIndex);
-      this.hot.runHooks('afterAddChild', parent, parentIndex, childElement, index);
+      this.hot.runHooks('afterAddChild', parent, childElement, index, parentIndex);
     }
 
     /**

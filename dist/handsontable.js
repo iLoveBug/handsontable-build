@@ -26,7 +26,7 @@
  * USE OR INABILITY TO USE THIS SOFTWARE.
  * 
  * Version: 12.3.3
- * Release date: 28/03/2023 (built at 15/04/2023 10:23:03)
+ * Release date: 28/03/2023 (built at 15/04/2023 14:24:08)
  */
 (function webpackUniversalModuleDefinition(root, factory) {
 	if(typeof exports === 'object' && typeof module === 'object')
@@ -41833,7 +41833,7 @@ Handsontable.hooks = _pluginHooks.default.getSingleton();
 Handsontable.CellCoords = _src.CellCoords;
 Handsontable.CellRange = _src.CellRange;
 Handsontable.packageName = 'handsontable';
-Handsontable.buildDate = "15/04/2023 10:23:03";
+Handsontable.buildDate = "15/04/2023 14:24:08";
 Handsontable.version = "12.3.3";
 Handsontable.languages = {
   dictionaryKeys: _registry.dictionaryKeys,
@@ -91407,6 +91407,18 @@ var NestedRows = /*#__PURE__*/function (_BasePlugin) {
     value: function isCollapsed() {
       return this.collapsingUI.isAnyChildrenCollapsed(null);
     }
+
+    /**
+     * get the physical row of a object
+     *
+     * @param {object} rowObj The row object.
+     * @returns {integer}
+     */
+  }, {
+    key: "getRowIndex",
+    value: function getRowIndex(rowObj) {
+      return this.dataManager.getRowIndex(rowObj);
+    }
   }], [{
     key: "PLUGIN_KEY",
     get: function get() {
@@ -91684,7 +91696,7 @@ var DataManager = /*#__PURE__*/function () {
     value: function mockNode() {
       var fakeNode = {};
       (0, _object.objectEach)(this.data[0], function (val, key) {
-        if ((0, _typeof2.default)(val) === 'object' && val !== null) {
+        if ((0, _typeof2.default)(val) === 'object' && val !== null && key !== '__children') {
           fakeNode[key] = {};
           Object.keys(val).forEach(function (item) {
             fakeNode[key][item] = null;
@@ -91940,7 +91952,7 @@ var DataManager = /*#__PURE__*/function () {
       var newRowIndex = this.getRowIndex(childElement);
       this.hot.rowIndexMapper.insertIndexes(newRowIndex, 1);
       this.hot.runHooks('afterCreateRow', newRowIndex, 1);
-      this.hot.runHooks('afterAddChild', parent, childElement);
+      this.hot.runHooks('afterAddChild', parent, childElement, newRowIndex, parentIndex);
     }
 
     /**
@@ -91981,7 +91993,7 @@ var DataManager = /*#__PURE__*/function () {
 
       // Workaround for refreshing cache losing the reference to the mocked row.
       childElement = this.getDataObject(flattenedIndex);
-      this.hot.runHooks('afterAddChild', parent, parentIndex, childElement, index);
+      this.hot.runHooks('afterAddChild', parent, childElement, index, parentIndex);
     }
 
     /**
