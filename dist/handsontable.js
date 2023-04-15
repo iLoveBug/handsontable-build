@@ -26,7 +26,7 @@
  * USE OR INABILITY TO USE THIS SOFTWARE.
  * 
  * Version: 12.3.3
- * Release date: 28/03/2023 (built at 14/04/2023 11:46:26)
+ * Release date: 28/03/2023 (built at 15/04/2023 10:23:03)
  */
 (function webpackUniversalModuleDefinition(root, factory) {
 	if(typeof exports === 'object' && typeof module === 'object')
@@ -41833,7 +41833,7 @@ Handsontable.hooks = _pluginHooks.default.getSingleton();
 Handsontable.CellCoords = _src.CellCoords;
 Handsontable.CellRange = _src.CellRange;
 Handsontable.packageName = 'handsontable';
-Handsontable.buildDate = "14/04/2023 11:46:26";
+Handsontable.buildDate = "15/04/2023 10:23:03";
 Handsontable.version = "12.3.3";
 Handsontable.languages = {
   dictionaryKeys: _registry.dictionaryKeys,
@@ -91953,6 +91953,7 @@ var DataManager = /*#__PURE__*/function () {
   }, {
     key: "addChildAtIndex",
     value: function addChildAtIndex(parent, index, element) {
+      var parentIndex;
       var childElement = element;
       var flattenedIndex;
       if (!childElement) {
@@ -91960,7 +91961,7 @@ var DataManager = /*#__PURE__*/function () {
       }
       this.hot.runHooks('beforeAddChild', parent, childElement, index);
       if (parent) {
-        var parentIndex = this.getRowIndex(parent);
+        parentIndex = this.getRowIndex(parent);
         var finalChildIndex = parentIndex + index + 1;
         this.hot.runHooks('beforeCreateRow', finalChildIndex, 1);
         parent.__children.splice(index, null, childElement);
@@ -91980,7 +91981,7 @@ var DataManager = /*#__PURE__*/function () {
 
       // Workaround for refreshing cache losing the reference to the mocked row.
       childElement = this.getDataObject(flattenedIndex);
-      this.hot.runHooks('afterAddChild', parent, childElement, index);
+      this.hot.runHooks('afterAddChild', parent, parentIndex, childElement, index);
     }
 
     /**

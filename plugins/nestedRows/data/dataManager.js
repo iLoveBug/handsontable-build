@@ -539,6 +539,7 @@ var DataManager = /*#__PURE__*/function () {
   }, {
     key: "addChildAtIndex",
     value: function addChildAtIndex(parent, index, element) {
+      var parentIndex;
       var childElement = element;
       var flattenedIndex;
       if (!childElement) {
@@ -546,7 +547,7 @@ var DataManager = /*#__PURE__*/function () {
       }
       this.hot.runHooks('beforeAddChild', parent, childElement, index);
       if (parent) {
-        var parentIndex = this.getRowIndex(parent);
+        parentIndex = this.getRowIndex(parent);
         var finalChildIndex = parentIndex + index + 1;
         this.hot.runHooks('beforeCreateRow', finalChildIndex, 1);
         parent.__children.splice(index, null, childElement);
@@ -566,7 +567,7 @@ var DataManager = /*#__PURE__*/function () {
 
       // Workaround for refreshing cache losing the reference to the mocked row.
       childElement = this.getDataObject(flattenedIndex);
-      this.hot.runHooks('afterAddChild', parent, childElement, index);
+      this.hot.runHooks('afterAddChild', parent, parentIndex, childElement, index);
     }
 
     /**
