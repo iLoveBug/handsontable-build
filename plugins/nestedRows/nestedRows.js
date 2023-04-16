@@ -625,6 +625,18 @@ var NestedRows = /*#__PURE__*/function (_BasePlugin) {
     value: function getRowIndex(rowObj) {
       return this.dataManager.getRowIndex(rowObj);
     }
+
+    /**
+     * Get the parent of the row at the provided index.
+     *
+     * @param {number|object} row Physical row index.
+     * @returns {object}
+     */
+  }, {
+    key: "getRowParent",
+    value: function getRowParent(row) {
+      return this.dataManager.getRowParent(row);
+    }
   }], [{
     key: "PLUGIN_KEY",
     get: function get() {

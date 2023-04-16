@@ -106,11 +106,19 @@ var DataSource = /*#__PURE__*/function () {
   }, {
     key: "getAtColumn",
     value: function getAtColumn(column) {
-      var _this = this;
       var result = [];
-      arrayEach(this.data, function (row, rowIndex) {
-        var value = _this.getAtCell(rowIndex, column);
-        result.push(value);
+      var _this = this;
+      var getColumn = function getColumn(row, col, arr) {
+        var prop = _this.colToProp(col);
+        arr.push(row[prop]);
+        if (row.__children && row.__children.length) {
+          row.__children.forEach(function (child) {
+            getColumn(child, col, arr);
+          });
+        }
+      };
+      arrayEach(this.data, function (row) {
+        getColumn(row, column, result);
       });
       return result;
     }
