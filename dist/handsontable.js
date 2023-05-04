@@ -26,7 +26,7 @@
  * USE OR INABILITY TO USE THIS SOFTWARE.
  * 
  * Version: 12.3.3
- * Release date: 28/03/2023 (built at 16/04/2023 15:12:25)
+ * Release date: 28/03/2023 (built at 04/05/2023 08:41:46)
  */
 (function webpackUniversalModuleDefinition(root, factory) {
 	if(typeof exports === 'object' && typeof module === 'object')
@@ -41833,7 +41833,7 @@ Handsontable.hooks = _pluginHooks.default.getSingleton();
 Handsontable.CellCoords = _src.CellCoords;
 Handsontable.CellRange = _src.CellRange;
 Handsontable.packageName = 'handsontable';
-Handsontable.buildDate = "16/04/2023 15:12:25";
+Handsontable.buildDate = "04/05/2023 08:41:46";
 Handsontable.version = "12.3.3";
 Handsontable.languages = {
   dictionaryKeys: _registry.dictionaryKeys,
@@ -47729,10 +47729,15 @@ var BottomOverlay = /*#__PURE__*/function (_Overlay) {
     value: function resetFixedPosition() {
       if (!this.needFullRender || !this.wot.wtTable.holder.parentNode) {
         // removed from DOM
+        if (this.clone.wtTable.holder.parentNode) {
+          var _overlayRoot = this.clone.wtTable.holder.parentNode;
+          _overlayRoot.style.display = 'none';
+        }
         return false;
       }
       var rootWindow = this.domBindings.rootWindow;
       var overlayRoot = this.clone.wtTable.holder.parentNode;
+      overlayRoot.style.display = 'initial';
       overlayRoot.style.top = '';
       var overlayPosition = 0;
       var preventOverflow = this.wtSettings.getSetting('preventOverflow');
